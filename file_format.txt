@@ -1,0 +1,86 @@
+File formats
+
+== Source file:
+
+1. The file should be in CSV format; true CSV (comma-separated), not
+tab-separated.No thousand separators in numbers. All data series to be
+fitted should be included in a single file; the **Country** column
+should be used to code different data series (see below).
+
+2. The file should contain at least three columns: **Country**,
+**Year**, and **Value**.
+
+- **Country** (text) can be used to code
+countries, regions, states etc. It can also 	be used to code e.g.
+energy source or scenario, since there are no special columns for these.
+E.g. “DE.W” and “DE.S” for wind and solar in Germany respectively, or
+“DE.2050” for a certain scenario. Note: it there's only one data series
+in the file (e.g. a single source for a single country), you should
+still have the column Country for the code to work.
+
+- **Year** (number) – year or other time variable.
+
+- **Value** (number) – values to be
+fitted. 
+
+3. There can be additional column **Total** (number) containing
+some sort of the system size in the same units as Value (e.g. total
+electricity supply as the system size for wind generation data, both in
+GWh). If this column is present, G and L can also be expressed as % of
+the system size. **Total** should be provided for all data points for
+which **Value** is provided (otherwise problems may occur in
+calculations).
+
+4. Any other columns can be included in the file, but
+they are ignored in the process of fitting.
+
+
+== Output: a csv file in the same location as the source data file. The
+same name with _fit added.
+
+Columns in the file:
+
+**Country** – country, region etc. (the same as in the source file)
+
+**Fit** – fitted model (S - logistic, G - Gompertz)
+
+**L** – growth ceiling (saturation level)
+
+**L.Size** – L as % of the system size (Total) in TMax (or in the last
+available year if the estimated TMax is after that year). Calculated
+only if there is the Total column in the source data file AND "total <-
+T" is specified in the *fitting.R* file.
+
+**TMax** – maximum growth year.  The corresponding levels are L/2 for S;
+L * 0.368 for G.
+
+**K** – growth constant
+
+**dT** – time to grow from 10% to 90% of the ceiling. Calculated only
+for S and G (there are no ceilings for L and E)
+
+**G** – maximum growth rate, i.e. growth rate at TMax.
+
+**G.Size** – G as % of the system size at TMax (or in the last available
+year if the estimated TMax is after that year). Calculated only if there
+is the Total column in the source data file AND "total <- T" is
+specified in the *fitting.R* file.
+
+**Maturity** – % of the eventual saturation level achieved by the fitted
+curve by the last available empirical year.
+
+**RSS.Rel** – relative RSS (residual sum of squares). RSS is a measure
+of goodness-of-fit (for different models fitting he same datasets,
+smaller RSS means better fit). To calculate relative RSS, the smallest
+RSS value across all models for a given country is identified and all
+RSS values for this country are normalized to that value (divided by
+it). E.g. if the RSS's are: S - 300, G - 450, RSS.Rel will be : S - 1, G
+- 1.5, . This parameter is usually more informative that the "raw" RSS.
+
+**Good** – 1 if the model was fitted successfully, 0 – it the algorithm
+was unable to fit the given model to the data. If Good = 0, all fit
+parameters are reported as 0.
+
+**Future** – 1 if the estimated TMax is in the future (after the last
+available empirical datapoint), 0 otherwise. For E always 0 (there's no
+meaningful maximum growth point there).
