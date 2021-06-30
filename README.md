@@ -1,6 +1,7 @@
 Code for the article Cherp, A., Vinichenko, V., Tosun, J., Gordon, J., and Jewell J. 
 National growth dynamics of wind and solar power compared to the growth required for 
 global climate targets. Nature Energy (2021) 
+
 DOI: https://doi.org/10.1038/s41560-021-00863-0
 
 fitting.R - R code for growth model fitting
