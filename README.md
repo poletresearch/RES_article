@@ -23,7 +23,7 @@ data files.
 Packages necessary for running R code are listed within fitting.R.
 
 Warning: (1) growths rates cannot be reliably estimated  when the inflection point is 
-in the future (indicated by "1" under the **Future** column - see file_format.txt) 
+in the future (indicated by "1" under the **Future** column - see file_format.txt). 
 (2) The code has not been tested for data series starting around or above the inflection 
 point (50% and 37% of the  asymptote for Logistic and Gompertz models respectively). 
 Growth model parameters estimates for such data series may be unreliable. 
