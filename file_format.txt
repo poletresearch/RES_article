@@ -82,5 +82,5 @@ was unable to fit the given model to the data. If Good = 0, all fit
 parameters are reported as 0.
 
 **Future** – 1 if the estimated TMax is in the future (after the last
-available empirical datapoint), 0 otherwise. For E always 0 (there's no
-meaningful maximum growth point there).
+available empirical datapoint), 0 otherwise. Warning: growth rates 
+cannot be reliably estimated when the inflection point is in the future.
